@@ -20,7 +20,7 @@ Domain Path: /languages
 	}
 
 	function pegasus_popup_menu_item() {
-		add_menu_page("Popup", "Popup", "manage_options", "pegasus_popup_plugin_options", "pegasus_popup_plugin_settings_page", null, 99);
+		//add_menu_page("Popup", "Popup", "manage_options", "pegasus_popup_plugin_options", "pegasus_popup_plugin_settings_page", null, 99);
 		
 	}
 	add_action("admin_menu", "pegasus_popup_menu_item");
