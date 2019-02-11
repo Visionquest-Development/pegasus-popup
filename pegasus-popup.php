@@ -37,7 +37,7 @@ Domain Path: /languages
 	
 	function pegasus_popup_plugin_styles() {
 		//wp_enqueue_style( 'masonry-css', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'css/masonry.css', array(), null, 'all' );
-		wp_enqueue_style( 'magnific-popup-css', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'css/magnific-popup.css', array(), null, 'all' );
+		wp_register_style( 'magnific-popup-css', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'css/magnific-popup.css', array(), null, 'all' );
 	}
 	add_action( 'wp_enqueue_scripts', 'pegasus_popup_plugin_styles' );
 	
@@ -51,9 +51,9 @@ Domain Path: /languages
 		//wp_enqueue_script( 'scrollspy-js', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'js/scrollspy.js', array( 'jquery' ), null, true );
 		
 		//wp_enqueue_script( 'images-loaded-js', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'js/imagesLoaded.js', array( 'jquery' ), null, true );
-		
-		wp_enqueue_script( 'magnific-popup-js', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'js/magnific-popup.js', array( 'jquery' ), null, true );
-		wp_enqueue_script( 'pegasus-popup-plugin-js', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'js/plugin.js', array( 'jquery' ), null, true );
+
+		wp_register_script( 'magnific-popup-js', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'js/magnific-popup.js', array( 'jquery' ), null, 'all' );
+		wp_register_script( 'pegasus-popup-plugin-js', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'js/plugin.js', array( 'jquery' ), null, 'all' );
 		
 	} //end function
 	add_action( 'wp_enqueue_scripts', 'pegasus_popup_plugin_js' );
@@ -73,7 +73,12 @@ Domain Path: /languages
 			$output .= '<div id="" class="popup" >';
 				$output .=   do_shortcode($content);
 			$output .= '</div>';
-		
+
+
+		wp_enqueue_style( 'magnific-popup-css' );
+		wp_enqueue_script( 'magnific-popup-js' );
+		wp_enqueue_script( 'pegasus-popup-plugin-js' );
+
 		return $output; 
 	}
 	add_shortcode( 'popup', 'pegasus_popup_func' );
