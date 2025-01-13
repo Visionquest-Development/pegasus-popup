@@ -199,6 +199,7 @@ Domain Path: /languages
 	function pegasus_popup_plugin_styles() {
 		//wp_enqueue_style( 'masonry-css', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'css/masonry.css', array(), null, 'all' );
 		wp_register_style( 'magnific-popup-css', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'css/magnific-popup.css', array(), null, 'all' );
+		wp_register_style( 'pegasus-popup-plugin', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'css/pegasus-popup.css', array(), null, 'all' );
 	}
 	add_action( 'wp_enqueue_scripts', 'pegasus_popup_plugin_styles' );
 
@@ -211,7 +212,7 @@ Domain Path: /languages
 		//wp_enqueue_script( 'scrollspy-js', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'js/scrollspy.js', array( 'jquery' ), null, true );
 		//wp_enqueue_script( 'images-loaded-js', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'js/imagesLoaded.js', array( 'jquery' ), null, true );
 		wp_register_script( 'magnific-popup-js', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'js/magnific-popup.js', array( 'jquery' ), null, 'all' );
-		wp_register_script( 'pegasus-popup-plugin-js', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'js/plugin.js', array( 'jquery' ), null, 'all' );
+		wp_register_script( 'pegasus-popup-plugin', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'js/pegasus-popup-plugin.js', array( 'jquery' ), null, 'all' );
 	} //end function
 	add_action( 'wp_enqueue_scripts', 'pegasus_popup_plugin_js' );
 
@@ -225,6 +226,7 @@ Domain Path: /languages
 			'type' => '',
 			'text' => '',
 			'caption' => '',
+			'image' => '',
 		), $atts );
 
 		$output = '';
@@ -235,21 +237,62 @@ Domain Path: /languages
 		$type = "{$a['type']}" ? "{$a['type']}" : 'image';
 		$text = "{$a['text']}" ? "{$a['text']}" : 'Learn More';
 		$caption = "{$a['caption']}" ? "{$a['caption']}" : '';
+		$image = "{$a['image']}" ? "{$a['image']}" : '';
 
 		switch ( $type ) {
 			case 'inline':
-				$output .= '<div id="pegasus-popup-' . $unique_id . '" class="white-popup mfp-hide' . $class_chk . '" >';
+				$output .= '<div
+					id="pegasus-popup-' . $unique_id . '"
+					class="white-popup mfp-hide ' . $class_chk . '"
+				>';
 				$output .=   do_shortcode( $content );
 				$output .= '</div>';
 
-				$output .= '<a href="#pegasus-popup-' . $unique_id . '" class="btn popup" title="' . $caption . '" >' . $text . '</a>';
+				$output .= '<a
+					href="#pegasus-popup-' . $unique_id . '"
+					class="btn popup"
+					title="' . $caption . '"
+				>';
+				$output .= $text;
+				$output .= '</a>';
+
+				$pegasus_popup_counter++;
+				break;
+
+			case 'image': //mfp-wrap mfp-close-btn-in mfp-img-mobile mfp-ready
+
+				$output .= '<div
+					id="pegasus-popup-' . $unique_id . '"
+					class="white-popup mfp-hide mfp-image-holder ' . $class_chk . '"
+				>';
+				$output .= '<div class="mfp-figure">';
+				$output .= '<button title="Close (Esc)" type="button" class="mfp-close">×</button>';
+				$output .= '<figure>';
+				$output .=   wp_kses_post( do_shortcode( $content ) );
+				$output .= '<figcaption><div class="mfp-bottom-bar"><div class="mfp-title">Caption. Can be aligned to any side and contain any HTML.</div><div class="mfp-counter">12</div></div></figcaption>';
+				$output .= '</figure>';
+				$output .= '</div>';
+				$output .= '</div>';
+
+				$output .= '<a
+					href="#pegasus-popup-' . $unique_id . '"
+					class="btn popup"
+					title="' . $caption . '"
+				>';
+				$output .= $text;
+				$output .= '</a>';
+				$output .= '</div>';
 
 				$pegasus_popup_counter++;
 				break;
 
 			case 'gallery':
-				$output .= '<div id="pegasus-popup-' . $unique_id . '" class="white-popup mfp-hide' . $class_chk . '" >';
+				$output .= '<div id="pegasus-popup-' . $unique_id . '" class="white-popup mfp-hide ' . $class_chk . '" >';
+
+				//$output .= '<div class="mfp-container mfp-image-holder mfp-s-ready"><div class="mfp-content"><div class="mfp-figure"><button title="Close (Esc)" type="button" class="mfp-close">×</button><figure>' . do_shortcode( $content ) . '<figcaption><div class="mfp-bottom-bar"><div class="mfp-title">The Uninvited Guest by Marsel Van Oosten</div><div class="mfp-counter">3 of 7</div></div></figcaption></figure></div></div><div class="mfp-preloader">Loading image #3...</div><button title="Previous (Left arrow key)" type="button" class="mfp-arrow mfp-arrow-left mfp-prevent-close"></button><button title="Next (Right arrow key)" type="button" class="mfp-arrow mfp-arrow-right mfp-prevent-close"></button></div>';
 				$output .=   do_shortcode( $content );
+
+
 				$output .= '</div>';
 
 				$output .= '<a href="#pegasus-popup-' . $unique_id . '" class="btn popup" title="' . $caption . '" >' . $text . '</a>';
@@ -257,7 +300,7 @@ Domain Path: /languages
 				break;
 
 			default:
-				$output .= '<div id="pegasus-popup-' . $unique_id . '" class="white-popup mfp-hide' . $class_chk . '" >';
+				$output .= '<div id="pegasus-popup-' . $unique_id . '" class="white-popup mfp-hide'  . $class_chk . '" >';
 				$output .=   do_shortcode( $content );
 				$output .= '</div>';
 
@@ -270,8 +313,9 @@ Domain Path: /languages
 		}
 
 		wp_enqueue_style( 'magnific-popup-css' );
+		wp_enqueue_style( 'pegasus-popup-plugin' );
 		wp_enqueue_script( 'magnific-popup-js' );
-		wp_enqueue_script( 'pegasus-popup-plugin-js' );
+		wp_enqueue_script( 'pegasus-popup-plugin' );
 
 		return $output;
 	}

@@ -1,0 +1,11 @@
+  .btn {
+    --bs-btn-border-color: #000;
+  }
+
+  .mfp-content, .pegasus-popup-center {
+    text-align: center;
+  }
+
+  .mfp-close-btn-in .mfp-close {
+    color: #fff;
+  }
