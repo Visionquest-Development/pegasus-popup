@@ -198,8 +198,8 @@ Domain Path: /languages
 
 	function pegasus_popup_plugin_styles() {
 		//wp_enqueue_style( 'masonry-css', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'css/masonry.css', array(), null, 'all' );
-		wp_register_style( 'magnific-popup-css', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'css/magnific-popup.css', array(), null, 'all' );
-		wp_register_style( 'pegasus-popup-plugin', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'css/pegasus-popup.css', array(), null, 'all' );
+		wp_register_style( 'magnific-popup-css', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'css/magnific-popup.css', array(), '1.2.0', 'all' );
+		wp_register_style( 'pegasus-popup-plugin', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'css/pegasus-popup.css', array(), '1.0', 'all' );
 	}
 	add_action( 'wp_enqueue_scripts', 'pegasus_popup_plugin_styles' );
 
@@ -211,8 +211,8 @@ Domain Path: /languages
 		//wp_enqueue_script( 'snap-scroll-js', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'js/jquery.snapscroll.js', array( 'jquery' ), null, true );
 		//wp_enqueue_script( 'scrollspy-js', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'js/scrollspy.js', array( 'jquery' ), null, true );
 		//wp_enqueue_script( 'images-loaded-js', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'js/imagesLoaded.js', array( 'jquery' ), null, true );
-		wp_register_script( 'magnific-popup-js', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'js/magnific-popup.js', array( 'jquery' ), null, 'all' );
-		wp_register_script( 'pegasus-popup-plugin', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'js/pegasus-popup-plugin.js', array( 'jquery' ), null, 'all' );
+		wp_register_script( 'magnific-popup-js', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'js/magnific-popup.js', array( 'jquery' ), '1.2.0', 'all' );
+		wp_register_script( 'pegasus-popup-plugin', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'js/pegasus-popup-plugin.js', array( 'jquery' ), '1.0', 'all' );
 	} //end function
 	add_action( 'wp_enqueue_scripts', 'pegasus_popup_plugin_js' );
 
